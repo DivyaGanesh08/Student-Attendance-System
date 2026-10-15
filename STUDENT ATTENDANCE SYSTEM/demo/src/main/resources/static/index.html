@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">STUDENT MANAGEMENT</p>
+            <h1>Attendance Dashboard</h1>
+            <p class="subtitle">Manage students and track attendance.</p>
+        </div>
+        <span class="server-status">
+            <span class="status-dot"></span> Backend connected by API
+        </span>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <article class="stat-card">
+                <span>Total Students</span>
+                <strong id="totalStudents">0</strong>
+            </article>
+            <article class="stat-card">
+                <span>Attendance Records</span>
+                <strong id="totalRecords">0</strong>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Add Student</h2>
+                    <p>Enter the student's details below.</p>
+                </div>
+            </div>
+
+            <form id="studentForm">
+                <div class="form-grid">
+                    <label>
+                        Student Name
+                        <input id="studentName" name="name"
+                               type="text" placeholder="Enter full name"
+                               required>
+                    </label>
+
+                    <label>
+                        Email Address
+                        <input id="studentEmail" name="email"
+                               type="email" placeholder="student@example.com"
+                               required>
+                    </label>
+
+                    <label>
+                        Department
+                        <input id="studentDepartment" name="department"
+                               type="text" placeholder="e.g. IT" required>
+                    </label>
+                </div>
+
+                <button type="submit" id="addStudentBtn">Add Student</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Students</h2>
+                    <p>Students saved in the database.</p>
+                </div>
+                <button class="secondary" id="refreshStudents" type="button">
+                    Refresh
+                </button>
+            </div>
+
+            <div id="studentMessage" class="message" role="status"></div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable">
+                        <tr>
+                            <td colspan="4">Loading students...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Mark Attendance</h2>
+                    <p>Select a student and record their attendance.</p>
+                </div>
+            </div>
+
+            <form id="attendanceForm">
+                <div class="form-grid">
+                    <label>
+                        Student
+                        <select id="attendanceStudent" required>
+                            <option value="">Select a student</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Attendance Date
+                        <input id="attendanceDate" type="date" required>
+                    </label>
+
+                    <label>
+                        Status
+                        <select id="attendanceStatus" required>
+                            <option value="PRESENT">Present</option>
+                            <option value="ABSENT">Absent</option>
+                        </select>
+                    </label>
+                </div>
+
+                <button type="submit" id="markAttendanceBtn">
+                    Mark Attendance
+                </button>
+            </form>
+
+            <div id="attendanceMessage" class="message" role="status"></div>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Attendance Records</h2>
+                    <p>View attendance entries from the database.</p>
+                </div>
+                <button class="secondary" id="refreshAttendance" type="button">
+                    Refresh
+                </button>
+            </div>
+
+            <div id="recordsMessage" class="message" role="status"></div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTable">
+                        <tr>
+                            <td colspan="3">Loading records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Attendance Percentage</h2>
+                    <p>Check the percentage for one student.</p>
+                </div>
+            </div>
+
+            <form id="percentageForm" class="percentage-form">
+                <label>
+                    Student
+                    <select id="percentageStudent" required>
+                        <option value="">Select a student</option>
+                    </select>
+                </label>
+                <button type="submit">Check Percentage</button>
+            </form>
+
+            <div id="percentageResult" class="percentage-result"
+                 role="status"></div>
+        </section>
+
+        <footer>
+            Student Attendance System · Spring Boot + MySQL
+        </footer>
+    </main>
+</body>
+</html>
